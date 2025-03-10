@@ -1,7 +1,10 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Space Grotesk", sans-serif;
     text-align: center;
-    background-color: #f4f4f4;
+    font-optical-sizing: auto;
+    font-weight: <weight> ;
+    font-style: normal;
+    background-color: #231225;
     margin: 0;
     padding: 0;
 }
@@ -28,4 +31,35 @@ button {
 button:hover {
     background-color: #007bff;
     color: white;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.video-container {
+  background-color: #302727;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.video-container video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+.video-container p {
+  color: #ffffff; /* Reemplaza #ff0000 con el color que desees */
+  font-size: 22px;  /* Ajusta el tamaño del texto si es necesario */
+  /* cambiar fuetne*/
+  font-family: "Space Grotesk", sans-serif;
+   
+
 }
