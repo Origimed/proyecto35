@@ -12,7 +12,12 @@ export default function Home() {
         console.log('Respuesta de la API:', res);
         const data = await res.json();
         console.log('Videos recibidos:', data);
-        setVideos(data);
+        // Corrige las URLs de los videos
+        const correctedData = data.map(video => ({
+          ...video,
+          url: video.url.replace('https://https//', 'https://')
+        }));
+        setVideos(correctedData);
       } catch (error) {
         console.error('Error al cargar los videos:', error);
       }
@@ -27,7 +32,9 @@ export default function Home() {
       <Head>
         <title>Galería de Videos</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {/* Se elimina la meta CSP para evitar conflictos y usar la política definida en next.config.js */}
       </Head>
+      
       <header>
         <h1>Galería de Videos</h1>
       </header>

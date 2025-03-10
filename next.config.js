@@ -13,7 +13,7 @@ module.exports = {
               "font-src 'self' https://fonts.gstatic.com; " +
               "img-src 'self' data:; " +
               "connect-src 'self'; " +
-              "media-src 'self' https://proyecto35.s3.us-east-2.amazonaws.com; " +
+              "media-src 'self' https://proyecto35.s3.us-east-2.amazonaws.com https://d5v4utim9ibun.cloudfront.net; " +
               "frame-src 'self';"
           }
         ]
