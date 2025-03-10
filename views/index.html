@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería de Videos</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 20px;
+    }
+    .video-container {
+      text-align: center;
+    }
+    .video-container video {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Galería de Videos</h1>
+  </header>
+
+  <div class="video-grid" id="videoGrid">
+    <!-- Aquí se inyectarán los videos -->
+  </div>
+
+  <!-- Se inyecta el nonce para que coincida con la CSP; asegúrate que el valor se sustituya en el render -->
+  <script nonce="{{nonce}}">
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log("DOM completamente cargado. Ejecutando loadVideos...");
+
+      function loadVideos() {
+        console.log("Ejecutando loadVideos...");
+        fetch('/api/videos')
+          .then(response => {
+            console.log("Respuesta de la petición:", response);
+            return response.json();
+          })
+          .then(videos => {
+            console.log("Videos recibidos:", videos);
+            const videoGrid = document.getElementById('videoGrid');
+            if (!videoGrid) {
+              console.error("No se encontró el contenedor 'videoGrid' en el DOM.");
+              return;
+            }
+            videoGrid.innerHTML = ''; // Limpiar el grid
+            videos.forEach(videoObj => {
+              console.log("Procesando video:", videoObj);
+              const videoContainer = document.createElement('div');
+              videoContainer.className = 'video-container';
+              videoContainer.innerHTML = `
+                <video controls>
+                  <source src="${videoObj.url}" type="video/mp4">
+                  Tu navegador no soporta el elemento de video.
+                </video>
+                <p>${videoObj.key.split('/').pop()}</p>
+              `;
+              videoGrid.appendChild(videoContainer);
+            });
+          })
+          .catch(error => console.error("Error al cargar los videos:", error));
+      }
+
+      // Cargar videos inicialmente y cada 30 segundos
+      loadVideos();
+      setInterval(loadVideos, 30000);
+    });
+  </script>
+</body>
+</html>
